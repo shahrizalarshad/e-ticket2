@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->integer('capacity')->nullable();
-            $table->unsignedInteger('ticket_price')->nullable();
+            $table->decimal('ticket_price', 10, 2)->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

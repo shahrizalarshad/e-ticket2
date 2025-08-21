@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(12);
         return view('events.index', compact('events'));
     }
 
@@ -22,7 +22,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('events.create');
     }
 
     /**
@@ -30,7 +30,13 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['user_id'] = 1; // For now, using a default user ID
+        
+        $event = Event::create($validated);
+
+        return redirect()->route('events.show', $event)
+            ->with('success', 'Event created successfully!');
     }
 
     /**
@@ -38,7 +44,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('events.show', compact('event'));
     }
 
     /**
@@ -46,7 +52,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('events.edit', compact('event'));
     }
 
     /**
@@ -54,7 +60,10 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->update($request->validated());
+
+        return redirect()->route('events.show', $event)
+            ->with('success', 'Event updated successfully!');
     }
 
     /**
@@ -62,6 +71,15 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        // Check if there are any tickets for this event
+        if ($event->tickets()->count() > 0) {
+            return redirect()->route('events.index')
+                ->with('error', 'Cannot delete event with existing tickets.');
+        }
+
+        $event->delete();
+
+        return redirect()->route('events.index')
+            ->with('success', 'Event deleted successfully!');
     }
 }

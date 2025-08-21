@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_vip',
+        'is_admin',
     ];
 
     /**
@@ -44,6 +45,40 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_vip' => 'boolean',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    /**
+     * Check if user is regular user (not admin)
+     */
+    public function isUser(): bool
+    {
+        return !$this->is_admin;
+    }
+
+    /**
+     * Check if user is VIP
+     */
+    public function isVip(): bool
+    {
+        return $this->is_vip;
+    }
+
+    /**
+     * Get user's tickets
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 }

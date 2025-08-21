@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->string('buyer_name');
             $table->string('buyer_email')->nullable();
+            $table->integer('quantity')->default(1);
             $table->enum('status', ['pending', 'confirmed', 'canceled']);
             $table->timestamps();
         });

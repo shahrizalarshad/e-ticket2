@@ -1,61 +1,297 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-Ticket System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive Laravel-based event ticketing system with VIP access controls, capacity management, and booking cancellation features.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🎫 Core Ticketing
+- Event creation and management
+- Ticket booking with real-time availability
+- Capacity management and overbooking prevention
+- Ticket cancellation with inventory return
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👑 VIP Access System
+- 24-hour exclusive booking window for VIP customers
+- Automatic access control based on user VIP status
+- Time-based validation for VIP periods
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🛡️ Security & Validation
+- Comprehensive input validation
+- CSRF protection
+- User authentication and authorization
+- Admin-only event management
 
-## Learning Laravel
+### ⏰ Time Management
+- Prevents booking for past events
+- Enforces VIP time windows
+- Event status tracking
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
+- PHP 8.1 or higher
+- Composer
+- Node.js and npm
+- MySQL or PostgreSQL database
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Setup Instructions
 
-## Laravel Sponsors
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd e-ticket2
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Environment configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Contributing
+5. **Configure database**
+   Edit `.env` file with your database credentials:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=e_ticket
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Run database migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-## Code of Conduct
+7. **Seed database (optional)**
+   ```bash
+   php artisan db:seed
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+8. **Build frontend assets**
+   ```bash
+   npm run build
+   ```
 
-## Security Vulnerabilities
+9. **Start development server**
+   ```bash
+   php artisan serve
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   The application will be available at `http://localhost:8000`
+
+## Usage
+
+### User Roles
+
+#### Regular Users
+- Browse events
+- Book tickets (outside VIP periods)
+- View their tickets
+- Cancel their bookings
+
+#### VIP Users
+- All regular user features
+- Exclusive 24-hour early booking access
+- Priority booking during VIP periods
+
+#### Administrators
+- All user features
+- Create and manage events
+- View all tickets
+- Cancel any bookings
+- Delete tickets permanently
+
+### Creating Events
+
+1. Login as an administrator
+2. Navigate to "Manage Events"
+3. Click "Create New Event"
+4. Fill in event details:
+   - **Name**: Event title
+   - **Description**: Event details
+   - **Location**: Venue information
+   - **VIP Access Period**: Set `special_start_date` and `special_end_date` for VIP-only booking
+   - **Event Period**: Set `start_date` and `end_date` for the actual event
+   - **Capacity**: Maximum number of tickets
+   - **Price**: Ticket price
+
+### Booking Tickets
+
+1. Browse available events
+2. Click on an event to view details
+3. Click "Book Tickets"
+4. Fill in booking information:
+   - Full name
+   - Email address
+   - Number of tickets (1-10)
+5. Submit booking
+
+**Note**: During VIP access periods, only VIP users can book tickets.
+
+### Managing Bookings
+
+1. Navigate to "My Tickets"
+2. View all your bookings
+3. Cancel tickets if needed (before event starts)
+4. Edit booking details (admin only)
+
+## Database Schema
+
+### Users Table
+- Standard Laravel user fields
+- `is_vip`: Boolean flag for VIP status
+- `is_admin`: Boolean flag for admin privileges
+
+### Events Table
+- Event information (name, description, location)
+- `special_start_date`/`special_end_date`: VIP access window
+- `start_date`/`end_date`: Actual event timing
+- `capacity`: Maximum tickets
+- `ticket_price`: Price per ticket
+
+### Tickets Table
+- Links to events and users
+- Buyer information
+- Quantity and status tracking
+- Status: 'pending', 'confirmed', 'cancelled'
+
+## Key Features Implementation
+
+### VIP Access Control
+
+```php
+// In Event model
+public function isVipAccessPeriod(): bool
+{
+    $now = now();
+    return $this->special_start_date && $this->special_end_date &&
+           $now->between($this->special_start_date, $this->special_end_date);
+}
+
+public function canUserBook($user): bool
+{
+    if (!$this->isVipAccessPeriod()) {
+        return true; // Anyone can book outside VIP period
+    }
+    
+    return $user && $user->isVip(); // Only VIP during VIP period
+}
+```
+
+### Capacity Management
+
+```php
+// In Event model
+public function getAvailableTicketsAttribute(): int
+{
+    $soldTickets = $this->tickets()->where('status', 'confirmed')->sum('quantity');
+    return max(0, $this->capacity - $soldTickets);
+}
+```
+
+### Ticket Cancellation
+
+```php
+// In TicketController
+public function cancel(Ticket $ticket)
+{
+    // Validation: user owns ticket, event hasn't passed
+    if ($ticket->event->hasPassed()) {
+        return back()->withErrors(['error' => 'Cannot cancel tickets for past events.']);
+    }
+    
+    $ticket->update(['status' => 'cancelled']);
+    // Tickets automatically return to available pool
+}
+```
+
+## API Documentation
+
+For detailed API documentation, see [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
+
+## Testing
+
+### Manual Testing Scenarios
+
+1. **VIP Access Testing**
+   - Create event with VIP period
+   - Test VIP user can book during VIP period
+   - Test regular user cannot book during VIP period
+   - Test both can book after VIP period ends
+
+2. **Capacity Testing**
+   - Create event with small capacity (e.g., 5 tickets)
+   - Book tickets up to capacity
+   - Verify overbooking prevention
+   - Cancel some tickets and verify availability returns
+
+3. **Time Validation**
+   - Create past event
+   - Verify booking is prevented
+   - Verify cancellation is prevented for past events
+
+### Running Tests
+
+```bash
+# Run PHP tests
+php artisan test
+
+# Run with coverage
+php artisan test --coverage
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"Class not found" errors**
+   ```bash
+   composer dump-autoload
+   php artisan config:clear
+   php artisan cache:clear
+   ```
+
+2. **Database connection errors**
+   - Verify database credentials in `.env`
+   - Ensure database server is running
+   - Check database exists
+
+3. **Permission errors**
+   ```bash
+   chmod -R 775 storage bootstrap/cache
+   ```
+
+4. **Frontend assets not loading**
+   ```bash
+   npm run build
+   php artisan config:clear
+   ```
+
+## Security
+
+### Security Features
+- CSRF protection on all forms
+- Input validation and sanitization
+- SQL injection prevention via Eloquent ORM
+- Authentication required for sensitive operations
+- Authorization checks for admin functions
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+**Built with Laravel 11 and modern web technologies.**
