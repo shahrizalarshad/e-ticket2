@@ -31,7 +31,7 @@
                                                 </svg>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- Event Details -->
                                         <div class="flex-1 min-w-0">
                                             <h3 class="text-lg font-semibold text-neutral-900 truncate">
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Ticket Details -->
                                 <div class="mt-4 lg:mt-0 lg:ml-6">
                                     <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-end xl:items-center space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-0 lg:space-y-2 xl:space-y-0 xl:space-x-4">
@@ -74,10 +74,10 @@
                                                 {{ ucfirst($ticket->status) }}
                                             </span>
                                         </div>
-                                        
+
                                         <!-- Actions -->
                                         <div class="flex space-x-2">
-                                            <a href="{{ route('tickets.show', $ticket) }}" 
+                                            <a href="{{ route('tickets.show', $ticket) }}"
                                                class="inline-flex items-center px-3 py-2 border border-neutral-300 shadow-sm text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200">
                                                 <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -85,13 +85,13 @@
                                                 </svg>
                                                 View Details
                                             </a>
-                                            
+
                                             @if($ticket->status === 'confirmed' && !$ticket->event->hasPassed() && (auth()->user()->id === $ticket->user_id || auth()->user()->isAdmin()))
-                                                <form action="{{ route('tickets.cancel', $ticket) }}" method="POST" class="inline" 
+                                                <form action="{{ route('tickets.cancel', $ticket) }}" method="POST" class="inline"
                                                       onsubmit="return confirm('Are you sure you want to cancel this ticket? This action cannot be undone.')">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" 
+                                                    <button type="submit"
                                                             class="inline-flex items-center px-3 py-2 border border-warning-300 shadow-sm text-sm leading-4 font-medium rounded-md text-warning-700 bg-white hover:bg-warning-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-warning-500 transition-colors duration-200">
                                                         <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -100,9 +100,9 @@
                                                     </button>
                                                 </form>
                                             @endif
-                                            
+
                                             @if(auth()->user()->isAdmin())
-                                                <a href="{{ route('tickets.edit', $ticket) }}" 
+                                                <a href="{{ route('tickets.edit', $ticket) }}"
                                                    class="inline-flex items-center px-3 py-2 border border-neutral-300 shadow-sm text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200">
                                                     <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -110,11 +110,11 @@
                                                     Edit
                                                 </a>
                                             @endif
-                                            <form action="{{ route('tickets.destroy', $ticket) }}" method="POST" class="inline" 
+                                            <form action="{{ route('tickets.destroy', $ticket) }}" method="POST" class="inline"
                                                   onsubmit="return confirm('Are you sure you want to delete this ticket?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" 
+                                                <button type="submit"
                                                         class="inline-flex items-center px-3 py-2 border border-danger-300 shadow-sm text-sm leading-4 font-medium rounded-md text-danger-700 bg-white hover:bg-danger-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-danger-500 transition-colors duration-200">
                                                     <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -130,7 +130,7 @@
                     </div>
                 @endforeach
             </div>
-            
+
             <!-- Pagination -->
             <div class="mt-8">
                 {{ $tickets->links() }}
@@ -146,7 +146,7 @@
                 <h3 class="mt-4 text-lg font-medium text-neutral-900">No tickets found</h3>
                 <p class="mt-2 text-sm text-neutral-500">You haven't purchased any tickets yet.</p>
                 <div class="mt-6">
-                    <a href="{{ route('events.index') }}" 
+                    <a href="{{ route('events.index') }}"
                        class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                         <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>

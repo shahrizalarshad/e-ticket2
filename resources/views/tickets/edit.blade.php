@@ -39,7 +39,7 @@
                         <!-- Buyer Name -->
                         <div>
                             <label for="buyer_name" class="block text-sm font-medium text-gray-700">Buyer Name</label>
-                            <input type="text" name="buyer_name" id="buyer_name" value="{{ old('buyer_name', $ticket->buyer_name) }}" 
+                            <input type="text" name="buyer_name" id="buyer_name" value="{{ old('buyer_name', $ticket->buyer_name) }}"
                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
                                    required>
                             @error('buyer_name')
@@ -50,7 +50,7 @@
                         <!-- Buyer Email -->
                         <div>
                             <label for="buyer_email" class="block text-sm font-medium text-gray-700">Buyer Email</label>
-                            <input type="email" name="buyer_email" id="buyer_email" value="{{ old('buyer_email', $ticket->buyer_email) }}" 
+                            <input type="email" name="buyer_email" id="buyer_email" value="{{ old('buyer_email', $ticket->buyer_email) }}"
                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
                                    required>
                             @error('buyer_email')
@@ -61,7 +61,7 @@
                         <!-- Quantity -->
                         <div>
                             <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
-                            <input type="number" name="quantity" id="quantity" value="{{ old('quantity', $ticket->quantity) }}" 
+                            <input type="number" name="quantity" id="quantity" value="{{ old('quantity', $ticket->quantity) }}"
                                    min="1" max="10"
                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
                                    required>
@@ -74,7 +74,7 @@
                         <!-- Status -->
                         <div>
                             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                            <select name="status" id="status" 
+                            <select name="status" id="status"
                                     class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
                                     required>
                                 <option value="pending" {{ old('status', $ticket->status) == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -88,11 +88,11 @@
 
                         <!-- Submit Buttons -->
                         <div class="flex items-center justify-end space-x-4">
-                            <a href="{{ route('tickets.show', $ticket) }}" 
+                            <a href="{{ route('tickets.show', $ticket) }}"
                                class="bg-neutral-200 hover:bg-neutral-300 text-neutral-800 font-bold py-2 px-4 rounded">
                                 Cancel
                             </a>
-                            <button type="submit" 
+                            <button type="submit"
                                     class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded">
                                 Update Ticket
                             </button>
@@ -102,11 +102,11 @@
                     <!-- Delete Ticket Section -->
                     <div class="mt-8 pt-6 border-t border-gray-200">
                         <h3 class="text-lg font-medium text-danger-600 mb-4">Danger Zone</h3>
-                        <form method="POST" action="{{ route('tickets.destroy', $ticket) }}" 
+                        <form method="POST" action="{{ route('tickets.destroy', $ticket) }}"
                               onsubmit="return confirm('Are you sure you want to delete this ticket? This action cannot be undone.')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" 
+                            <button type="submit"
                                     class="bg-danger-600 hover:bg-danger-700 text-white font-bold py-2 px-4 rounded">
                                 Delete Ticket
                             </button>

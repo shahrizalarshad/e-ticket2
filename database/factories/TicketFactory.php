@@ -51,7 +51,7 @@ class TicketFactory extends Factory
     public function canceled(): static
     {
         return $this->state(fn (array $attributes) => [
-            'status' => 'canceled',
+            'status' => 'cancelled',
         ]);
     }
 }

@@ -13,7 +13,41 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate(12);
+        // Add simple search and filtering to support a versatile homepage search
+        $search = request()->string('q');
+        $upcoming = request()->boolean('upcoming');
+        $free = request()->boolean('free');
+        $location = request()->string('location');
+
+        $eventsQuery = Event::query();
+
+        if ($search->isNotEmpty()) {
+            $term = '%' . $search . '%';
+            $eventsQuery->where(function ($q) use ($term) {
+                $q->where('name', 'like', $term)
+                  ->orWhere('description', 'like', $term)
+                  ->orWhere('location', 'like', $term);
+            });
+        }
+
+        if ($upcoming) {
+            $eventsQuery->whereNotNull('start_date')
+                        ->where('start_date', '>=', now());
+        }
+
+        if ($free) {
+            $eventsQuery->where(function ($q) {
+                $q->whereNull('ticket_price')
+                  ->orWhere('ticket_price', '=', 0);
+            });
+        }
+
+        if ($location->isNotEmpty()) {
+            $eventsQuery->where('location', 'like', '%' . $location . '%');
+        }
+
+        $events = $eventsQuery->paginate(12)->withQueryString();
+
         return view('events.index', compact('events'));
     }
 
@@ -32,7 +66,7 @@ class EventController extends Controller
     {
         $validated = $request->validated();
         $validated['user_id'] = 1; // For now, using a default user ID
-        
+
         $event = Event::create($validated);
 
         return redirect()->route('events.show', $event)

@@ -12,6 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        {{ __('Home') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -65,10 +68,16 @@
             <!-- Guest Links -->
             @guest
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
-                <a href="{{ route('login') }}" class="text-neutral-500 hover:text-neutral-700 px-3 py-2 text-sm font-medium">
+                <!-- "Cloaked" login button: blends into background until hover/focus, then becomes clearly visible -->
+                <a href="{{ route('login') }}"
+                   aria-label="{{ __('Login') }}"
+                   class="relative inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-medium transition-colors duration-200 motion-reduce:transition-none
+                          text-primary-700/20 border border-primary-700/10 bg-transparent
+                          hover:text-white hover:bg-primary-600 hover:border-primary-600
+                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                     {{ __('Login') }}
                 </a>
-                <a href="{{ route('register') }}" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded text-sm font-medium">
+                <a href="{{ route('register') }}" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded text-sm font-medium h-10 inline-flex items-center justify-center">
                     {{ __('Register') }}
                 </a>
             </div>
@@ -89,6 +98,9 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                {{ __('Home') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>

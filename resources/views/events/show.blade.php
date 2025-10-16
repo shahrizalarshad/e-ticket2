@@ -5,7 +5,7 @@
 @section('header')
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-4">
-            <a href="{{ route('events.index') }}" 
+            <a href="{{ route('events.index') }}"
                class="inline-flex items-center text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors duration-200">
                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -16,7 +16,7 @@
         @auth
             @if(auth()->user()->isAdmin())
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('events.edit', $event) }}" 
+                    <a href="{{ route('events.edit', $event) }}"
                        class="inline-flex items-center px-3 py-2 border border-neutral-300 shadow-sm text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200">
                         <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Event Details -->
                 <div class="p-6 md:p-8">
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             <!-- Event Details Grid -->
                             <div class="mb-8">
                                 <h2 class="text-xl font-semibold text-neutral-900 mb-4">Event Details</h2>
@@ -90,7 +90,7 @@
                                             <p class="text-sm text-neutral-600">{{ \Carbon\Carbon::parse($event->start_date)->format('g:i A') }}</p>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- End Date -->
                                     <div class="flex items-start space-x-3">
                                         <div class="flex-shrink-0">
@@ -106,7 +106,7 @@
                                             <p class="text-sm text-neutral-600">{{ \Carbon\Carbon::parse($event->end_date)->format('g:i A') }}</p>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Location -->
                                     <div class="flex items-start space-x-3">
                                         <div class="flex-shrink-0">
@@ -122,7 +122,7 @@
                                             <p class="text-sm text-neutral-600">{{ $event->location }}</p>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Capacity -->
                                     <div class="flex items-start space-x-3">
                                         <div class="flex-shrink-0">
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Sidebar -->
                         <div class="xl:col-span-1">
                             <!-- Ticket Purchase Card -->
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="text-sm text-neutral-500">per ticket</div>
                                 </div>
-                                
+
                                 <!-- Availability Status -->
                                 <div class="mb-6">
                                     @if($event->isVipAccessPeriod() && (!auth()->check() || !auth()->user()->isVip()))
@@ -174,11 +174,11 @@
                                         <div class="mt-1 text-xs text-neutral-500">{{ $event->available_tickets }} / {{ $event->capacity }} tickets available</div>
                                     @endif
                                 </div>
-                                
+
                                 <!-- Buy Ticket Button -->
                                 @auth
                                     @if($event->canUserBook(auth()->user()))
-                                        <a href="{{ route('tickets.create', $event) }}" 
+                                        <a href="{{ route('tickets.create', $event) }}"
                                            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 text-center inline-block">
                                             Purchase Tickets
                                         </a>
@@ -195,12 +195,12 @@
                                         </div>
                                     @endif
                                 @else
-                                    <a href="{{ route('login') }}" 
+                                    <a href="{{ route('login') }}"
                                        class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 text-center inline-block">
                                         Login to Purchase
                                     </a>
                                 @endauth
-                                
+
                                 <!-- Additional Info -->
                                 <div class="mt-4 text-xs text-neutral-500 text-center">
                                     <p>🔒 Secure payment processing</p>

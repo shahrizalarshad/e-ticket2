@@ -6,8 +6,30 @@ use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    // Prepare a more versatile homepage with featured and latest events
+    $featuredEvents = \App\Models\Event::query()
+        ->whereNotNull('start_date')
+        ->where('start_date', '>=', now())
+        ->orderBy('start_date')
+        ->take(3)
+        ->get();
+
+    $latestEvents = \App\Models\Event::query()
+        ->latest()
+        ->take(4)
+        ->get();
+
+    // Trending locations by event count
+    $trendingLocations = \App\Models\Event::query()
+        ->selectRaw('location, COUNT(*) as cnt')
+        ->whereNotNull('location')
+        ->groupBy('location')
+        ->orderByDesc('cnt')
+        ->limit(6)
+        ->pluck('location');
+
+    return view('welcome', compact('featuredEvents', 'latestEvents', 'trendingLocations'));
+})->name('home');
 
 // Public routes - anyone can view events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');

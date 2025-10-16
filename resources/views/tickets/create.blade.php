@@ -5,7 +5,7 @@
 @section('header')
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-4">
-            <a href="{{ route('events.show', $event) }}" 
+            <a href="{{ route('events.show', $event) }}"
                class="inline-flex items-center text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors duration-200">
                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Pricing Info -->
                         <div class="p-6">
                             <div class="text-center mb-4">
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="text-sm text-neutral-500">per ticket</div>
                             </div>
-                            
+
                             <!-- Order Summary -->
                             <div id="order-summary" class="border-t pt-4 hidden">
                                 <h3 class="font-medium text-neutral-900 mb-3">Order Summary</h3>
@@ -73,14 +73,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Purchase Form -->
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-8">
                         <div class="mb-8">
                             <h1 class="text-2xl font-bold text-neutral-900 mb-2">Purchase Tickets</h1>
                             <p class="text-neutral-600">Fill in your details to complete your ticket purchase</p>
-                            
+
                             @if($event->isVipAccessPeriod() && (!auth()->user() || !auth()->user()->isVip()))
                                 <div class="mt-4 bg-accent-50 border border-accent-200 rounded-lg p-4">
                                     <div class="flex">
@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             @if($event->available_tickets <= 0)
                                 <div class="mt-4 bg-danger-50 border border-danger-200 rounded-lg p-4">
                                     <div class="flex">
@@ -110,7 +110,7 @@
                                 </div>
                             @endif
                         </div>
-                        
+
                         @if ($errors->any())
                             <div class="mb-6 bg-danger-50 border border-danger-200 rounded-lg p-4">
                                 <div class="flex">
@@ -128,11 +128,11 @@
                                 </div>
                             </div>
                         @endif
-                        
+
                         <form action="{{ route('tickets.store') }}" method="POST" id="ticket-form" class="space-y-6">
                             @csrf
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
-                            
+
                             <!-- Personal Information -->
                             <div>
                                 <h2 class="text-lg font-semibold text-neutral-900 mb-4">Personal Information</h2>
@@ -141,11 +141,11 @@
                                         <label for="buyer_name" class="block text-sm font-medium text-neutral-700 mb-2">
                                             Full Name *
                                         </label>
-                                        <input type="text" 
-                                               name="buyer_name" 
-                                               id="buyer_name" 
+                                        <input type="text"
+                                               name="buyer_name"
+                                               id="buyer_name"
                                                value="{{ old('buyer_name') }}"
-                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_name') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
+                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_name') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror"
                                                placeholder="Enter your full name"
                                                required>
                                         @error('buyer_name')
@@ -157,16 +157,16 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    
+
                                     <div class="mb-6">
                                         <label for="buyer_email" class="block text-sm font-medium text-neutral-700 mb-2">
                                             Email Address *
                                         </label>
-                                        <input type="email" 
-                                               name="buyer_email" 
-                                               id="buyer_email" 
+                                        <input type="email"
+                                               name="buyer_email"
+                                               id="buyer_email"
                                                value="{{ old('buyer_email') }}"
-                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_email') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
+                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_email') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror"
                                                placeholder="Enter your email address"
                                                required>
                                         @error('buyer_email')
@@ -181,7 +181,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Ticket Quantity -->
                             <div>
                                 <h2 class="text-lg font-semibold text-neutral-900 mb-4">Ticket Selection</h2>
@@ -192,23 +192,23 @@
                                             <p class="text-sm text-neutral-600">RM {{ number_format($event->ticket_price, 2) }} per ticket</p>
                                         </div>
                                         <div class="flex items-center space-x-3">
-                                            <button type="button" 
-                                                    id="decrease-qty" 
+                                            <button type="button"
+                                                    id="decrease-qty"
                                                     class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
                                                 </svg>
                                             </button>
-                                            <input type="number" 
-                                                   name="quantity" 
-                                                   id="quantity" 
-                                                   min="1" 
+                                            <input type="number"
+                                                   name="quantity"
+                                                   id="quantity"
+                                                   min="1"
                                                    max="10"
                                                    value="{{ old('quantity', 1) }}"
-                                                   class="w-16 text-center border border-neutral-300 rounded-lg py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('quantity') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
+                                                   class="w-16 text-center border border-neutral-300 rounded-lg py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('quantity') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror"
                                                    required>
-                                            <button type="button" 
-                                                    id="increase-qty" 
+                                            <button type="button"
+                                                    id="increase-qty"
                                                     class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -222,26 +222,26 @@
                                     <p class="text-xs text-neutral-500">Maximum 10 tickets per purchase</p>
                                 </div>
                             </div>
-                            
+
                             <!-- Terms and Conditions -->
                             <div class="border-t pt-6">
                                 <div class="flex items-start space-x-3">
-                                    <input type="checkbox" 
-                                           id="terms" 
-                                           name="terms" 
-                                           class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded" 
+                                    <input type="checkbox"
+                                           id="terms"
+                                           name="terms"
+                                           class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
                                            required>
                                     <label for="terms" class="text-sm text-neutral-600">
-                                        I agree to the <a href="#" class="text-primary-600 hover:text-primary-500">Terms and Conditions</a> 
-                                        and <a href="#" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>. 
+                                        I agree to the <a href="#" class="text-primary-600 hover:text-primary-500">Terms and Conditions</a>
+                                        and <a href="#" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>.
                                         I understand that tickets are non-refundable.
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <!-- Submit Button -->
                             <div class="border-t pt-6">
-                                <button type="submit" 
+                                <button type="submit"
                                      class="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center"
                                      x-data="{ loading: false }"
                                      @click="loading = true"
@@ -276,36 +276,36 @@
             const orderSummary = document.getElementById('order-summary');
             const ticketPrice = {{ $event->ticket_price }};
             const serviceFeeRate = 0.05; // 5% service fee
-            
+
             function updateOrderSummary() {
                 const quantity = parseInt(quantityInput.value) || 0;
                 const subtotal = quantity * ticketPrice;
                 const serviceFee = subtotal * serviceFeeRate;
                 const total = subtotal + serviceFee;
-                
+
                 document.getElementById('summary-quantity').textContent = quantity;
                 document.getElementById('summary-subtotal').textContent = 'RM ' + subtotal.toFixed(2);
                 document.getElementById('summary-fee').textContent = 'RM ' + serviceFee.toFixed(2);
                 document.getElementById('summary-total').textContent = 'RM ' + total.toFixed(2);
-                
+
                 if (quantity > 0) {
                     orderSummary.classList.remove('hidden');
                 } else {
                     orderSummary.classList.add('hidden');
                 }
             }
-            
+
             function updateQuantity(change) {
                 const currentValue = parseInt(quantityInput.value) || 1;
                 const newValue = Math.max(1, Math.min(10, currentValue + change));
                 quantityInput.value = newValue;
                 updateOrderSummary();
             }
-            
+
             decreaseBtn.addEventListener('click', () => updateQuantity(-1));
             increaseBtn.addEventListener('click', () => updateQuantity(1));
             quantityInput.addEventListener('input', updateOrderSummary);
-            
+
             // Initialize order summary
             updateOrderSummary();
         });
