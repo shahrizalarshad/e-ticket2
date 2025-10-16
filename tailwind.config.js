@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,6 +14,16 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                // Brand palette tokens
+                primary: colors.indigo,
+                secondary: colors.cyan,
+                accent: colors.violet,
+                neutral: colors.slate,
+                success: colors.emerald,
+                warning: colors.amber,
+                danger: colors.rose,
             },
         },
     },

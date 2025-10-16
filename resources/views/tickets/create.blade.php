@@ -6,7 +6,7 @@
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-4">
             <a href="{{ route('events.show', $event) }}" 
-               class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200">
+               class="inline-flex items-center text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors duration-200">
                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -22,9 +22,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Event Summary Card -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden sticky top-6">
                         <!-- Event Header -->
-                        <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-8 text-white">
+                        <div class="bg-gradient-to-r from-primary-600 to-accent-600 px-6 py-8 text-white">
                             <h2 class="text-xl font-bold mb-2">{{ $event->name }}</h2>
                             <div class="space-y-2 text-sm opacity-90">
                                 <div class="flex items-center">
@@ -46,22 +46,22 @@
                         <!-- Pricing Info -->
                         <div class="p-6">
                             <div class="text-center mb-4">
-                                <div class="text-2xl font-bold text-gray-900 mb-1">
+                                <div class="text-2xl font-bold text-neutral-900 mb-1">
                                     RM {{ number_format($event->ticket_price, 2) }}
                                 </div>
-                                <div class="text-sm text-gray-500">per ticket</div>
+                                <div class="text-sm text-neutral-500">per ticket</div>
                             </div>
                             
                             <!-- Order Summary -->
                             <div id="order-summary" class="border-t pt-4 hidden">
-                                <h3 class="font-medium text-gray-900 mb-3">Order Summary</h3>
+                                <h3 class="font-medium text-neutral-900 mb-3">Order Summary</h3>
                                 <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
-                                        <span class="text-gray-600">Tickets (<span id="summary-quantity">0</span>)</span>
+                                        <span class="text-neutral-600">Tickets (<span id="summary-quantity">0</span>)</span>
                                         <span class="font-medium" id="summary-subtotal">RM 0.00</span>
                                     </div>
                                     <div class="flex justify-between">
-                                        <span class="text-gray-600">Service Fee</span>
+                                        <span class="text-neutral-600">Service Fee</span>
                                         <span class="font-medium" id="summary-fee">RM 0.00</span>
                                     </div>
                                     <div class="border-t pt-2 flex justify-between font-semibold">
@@ -76,35 +76,35 @@
                 
                 <!-- Purchase Form -->
                 <div class="lg:col-span-2">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-8">
                         <div class="mb-8">
-                            <h1 class="text-2xl font-bold text-gray-900 mb-2">Purchase Tickets</h1>
-                            <p class="text-gray-600">Fill in your details to complete your ticket purchase</p>
+                            <h1 class="text-2xl font-bold text-neutral-900 mb-2">Purchase Tickets</h1>
+                            <p class="text-neutral-600">Fill in your details to complete your ticket purchase</p>
                             
                             @if($event->isVipAccessPeriod() && (!auth()->user() || !auth()->user()->isVip()))
-                                <div class="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <div class="mt-4 bg-accent-50 border border-accent-200 rounded-lg p-4">
                                     <div class="flex">
-                                        <svg class="h-5 w-5 text-purple-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="h-5 w-5 text-accent-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                                         </svg>
                                         <div>
-                                            <h3 class="text-sm font-medium text-purple-800 mb-1">VIP Access Period</h3>
-                                            <p class="text-sm text-purple-700">This event is currently in VIP access period. Only VIP customers can purchase tickets during the first 24 hours after event creation.</p>
-                                            <p class="text-sm text-purple-600 mt-1">Regular booking will be available after {{ $event->created_at->addHours(24)->format('M d, Y g:i A') }}</p>
+                                            <h3 class="text-sm font-medium text-accent-800 mb-1">VIP Access Period</h3>
+                                            <p class="text-sm text-accent-700">This event is currently in VIP access period. Only VIP customers can purchase tickets during the first 24 hours after event creation.</p>
+                                            <p class="text-sm text-accent-600 mt-1">Regular booking will be available after {{ $event->created_at->addHours(24)->format('M d, Y g:i A') }}</p>
                                         </div>
                                     </div>
                                 </div>
                             @endif
                             
                             @if($event->available_tickets <= 0)
-                                <div class="mt-4 bg-red-50 border border-red-200 rounded-lg p-4">
+                                <div class="mt-4 bg-danger-50 border border-danger-200 rounded-lg p-4">
                                     <div class="flex">
-                                        <svg class="h-5 w-5 text-red-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="h-5 w-5 text-danger-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
                                         <div>
-                                            <h3 class="text-sm font-medium text-red-800 mb-1">Event Sold Out</h3>
-                                            <p class="text-sm text-red-700">Sorry, this event is currently sold out. No tickets are available for purchase.</p>
+                                            <h3 class="text-sm font-medium text-danger-800 mb-1">Event Sold Out</h3>
+                                            <p class="text-sm text-danger-700">Sorry, this event is currently sold out. No tickets are available for purchase.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -112,14 +112,14 @@
                         </div>
                         
                         @if ($errors->any())
-                            <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div class="mb-6 bg-danger-50 border border-danger-200 rounded-lg p-4">
                                 <div class="flex">
-                                    <svg class="h-5 w-5 text-red-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="h-5 w-5 text-danger-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     <div>
-                                        <h3 class="text-sm font-medium text-red-800 mb-2">Please correct the following errors:</h3>
-                                        <ul class="text-sm text-red-700 list-disc list-inside space-y-1">
+                                        <h3 class="text-sm font-medium text-danger-800 mb-2">Please correct the following errors:</h3>
+                                        <ul class="text-sm text-danger-700 list-disc list-inside space-y-1">
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach
@@ -135,21 +135,21 @@
                             
                             <!-- Personal Information -->
                             <div>
-                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h2>
+                                <h2 class="text-lg font-semibold text-neutral-900 mb-4">Personal Information</h2>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="mb-6">
-                                        <label for="buyer_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                        <label for="buyer_name" class="block text-sm font-medium text-neutral-700 mb-2">
                                             Full Name *
                                         </label>
                                         <input type="text" 
                                                name="buyer_name" 
                                                id="buyer_name" 
                                                value="{{ old('buyer_name') }}"
-                                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('buyer_name') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror" 
+                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_name') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
                                                placeholder="Enter your full name"
                                                required>
                                         @error('buyer_name')
-                                            <div class="mt-2 flex items-center text-sm text-red-600">
+                                            <div class="mt-2 flex items-center text-sm text-danger-600">
                                                 <svg class="h-4 w-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                                                 </svg>
@@ -159,42 +159,42 @@
                                     </div>
                                     
                                     <div class="mb-6">
-                                        <label for="buyer_email" class="block text-sm font-medium text-gray-700 mb-2">
+                                        <label for="buyer_email" class="block text-sm font-medium text-neutral-700 mb-2">
                                             Email Address *
                                         </label>
                                         <input type="email" 
                                                name="buyer_email" 
                                                id="buyer_email" 
                                                value="{{ old('buyer_email') }}"
-                                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('buyer_email') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror" 
+                                               class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 @error('buyer_email') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
                                                placeholder="Enter your email address"
                                                required>
                                         @error('buyer_email')
-                                            <div class="mt-2 flex items-center text-sm text-red-600">
+                                            <div class="mt-2 flex items-center text-sm text-danger-600">
                                                 <svg class="h-4 w-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                                                 </svg>
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <p class="mt-1 text-xs text-gray-500">Your tickets will be sent to this email</p>
+                                        <p class="mt-1 text-xs text-neutral-500">Your tickets will be sent to this email</p>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Ticket Quantity -->
                             <div>
-                                <h2 class="text-lg font-semibold text-gray-900 mb-4">Ticket Selection</h2>
-                                <div class="bg-gray-50 rounded-lg p-6">
+                                <h2 class="text-lg font-semibold text-neutral-900 mb-4">Ticket Selection</h2>
+                                <div class="bg-neutral-50 rounded-lg p-6">
                                     <div class="flex items-center justify-between mb-4">
                                         <div>
-                                            <h3 class="font-medium text-gray-900">General Admission</h3>
-                                            <p class="text-sm text-gray-600">RM {{ number_format($event->ticket_price, 2) }} per ticket</p>
+                                            <h3 class="font-medium text-neutral-900">General Admission</h3>
+                                            <p class="text-sm text-neutral-600">RM {{ number_format($event->ticket_price, 2) }} per ticket</p>
                                         </div>
                                         <div class="flex items-center space-x-3">
                                             <button type="button" 
                                                     id="decrease-qty" 
-                                                    class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                                                    class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
                                                 </svg>
@@ -205,11 +205,11 @@
                                                    min="1" 
                                                    max="10"
                                                    value="{{ old('quantity', 1) }}"
-                                                   class="w-16 text-center border border-gray-300 rounded-lg py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('quantity') border-red-300 focus:ring-red-500 focus:border-red-500 @enderror" 
+                                                   class="w-16 text-center border border-neutral-300 rounded-lg py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('quantity') border-danger-300 focus:ring-danger-500 focus:border-danger-500 @enderror" 
                                                    required>
                                             <button type="button" 
                                                     id="increase-qty" 
-                                                    class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                                                    class="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                                 </svg>
@@ -217,9 +217,9 @@
                                         </div>
                                     </div>
                                     @error('quantity')
-                                        <p class="text-sm text-red-600">{{ $message }}</p>
+                                        <p class="text-sm text-danger-600">{{ $message }}</p>
                                     @enderror
-                                    <p class="text-xs text-gray-500">Maximum 10 tickets per purchase</p>
+                                    <p class="text-xs text-neutral-500">Maximum 10 tickets per purchase</p>
                                 </div>
                             </div>
                             
@@ -229,11 +229,11 @@
                                     <input type="checkbox" 
                                            id="terms" 
                                            name="terms" 
-                                           class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+                                           class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded" 
                                            required>
-                                    <label for="terms" class="text-sm text-gray-600">
-                                        I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms and Conditions</a> 
-                                        and <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>. 
+                                    <label for="terms" class="text-sm text-neutral-600">
+                                        I agree to the <a href="#" class="text-primary-600 hover:text-primary-500">Terms and Conditions</a> 
+                                        and <a href="#" class="text-primary-600 hover:text-primary-500">Privacy Policy</a>. 
                                         I understand that tickets are non-refundable.
                                     </label>
                                 </div>
@@ -242,7 +242,7 @@
                             <!-- Submit Button -->
                             <div class="border-t pt-6">
                                 <button type="submit" 
-                                     class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center"
+                                     class="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center"
                                      x-data="{ loading: false }"
                                      @click="loading = true"
                                      :disabled="loading">
@@ -255,7 +255,7 @@
                                  </svg>
                                  <span x-text="loading ? 'Processing...' : 'Complete Purchase'"></span>
                              </button>
-                                <p class="mt-3 text-xs text-gray-500 text-center">
+                                <p class="mt-3 text-xs text-neutral-500 text-center">
                                     🔒 Your payment information is secure and encrypted
                                 </p>
                             </div>
