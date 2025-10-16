@@ -1,19 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-label="E‑Ticket logo" {{ $attributes }}>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <defs>
-    <linearGradient id="eticketGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#6366F1"/>
-      <stop offset="100%" stop-color="#06B6D4"/>
-    </linearGradient>
-    <mask id="eticketMask">
+    <mask id="ticketMaskWhite">
       <rect x="28" y="28" width="200" height="200" rx="28" fill="#fff"/>
       <circle cx="28" cy="128" r="18" fill="#000"/>
       <circle cx="228" cy="128" r="18" fill="#000"/>
     </mask>
   </defs>
-  <!-- Gradient ticket base with side notches -->
-  <rect x="28" y="28" width="200" height="200" rx="28" fill="url(#eticketGrad)" mask="url(#eticketMask)"/>
-  <!-- Stylized E and QR motif -->
-  <g fill="#ffffff" opacity="0.98">
+  <!-- Solid white mark for dark backgrounds -->
+  <rect x="28" y="28" width="200" height="200" rx="28" fill="#ffffff" mask="url(#ticketMaskWhite)"/>
+  <!-- Optional inner shapes maintained in white to preserve silhouette at larger sizes -->
+  <g fill="#ffffff" opacity="1">
     <rect x="88" y="84" width="16" height="88" rx="8"/>
     <rect x="110" y="84" width="64" height="14" rx="7"/>
     <rect x="110" y="116" width="52" height="14" rx="7"/>

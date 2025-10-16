@@ -1,23 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-label="E‑Ticket logo" {{ $attributes }}>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
   <defs>
-    <linearGradient id="eticketGrad" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#6366F1"/>
       <stop offset="100%" stop-color="#06B6D4"/>
     </linearGradient>
-    <mask id="eticketMask">
+    <mask id="ticketMask">
+      <!-- White shows, black hides (creates the ticket side notches) -->
       <rect x="28" y="28" width="200" height="200" rx="28" fill="#fff"/>
       <circle cx="28" cy="128" r="18" fill="#000"/>
       <circle cx="228" cy="128" r="18" fill="#000"/>
     </mask>
   </defs>
-  <!-- Gradient ticket base with side notches -->
-  <rect x="28" y="28" width="200" height="200" rx="28" fill="url(#eticketGrad)" mask="url(#eticketMask)"/>
-  <!-- Stylized E and QR motif -->
+
+  <!-- Ticket base with gradient fill and side notches -->
+  <rect x="28" y="28" width="200" height="200" rx="28" fill="url(#grad)" mask="url(#ticketMask)"/>
+
+  <!-- Inner emblem: stylized E and minimal QR motif -->
   <g fill="#ffffff" opacity="0.98">
+    <!-- Vertical bar of E -->
     <rect x="88" y="84" width="16" height="88" rx="8"/>
+    <!-- Top bar -->
     <rect x="110" y="84" width="64" height="14" rx="7"/>
+    <!-- Middle bar -->
     <rect x="110" y="116" width="52" height="14" rx="7"/>
+    <!-- Bottom bar -->
     <rect x="110" y="158" width="64" height="14" rx="7"/>
+
+    <!-- Minimal QR motif (four squares) -->
     <rect x="174" y="92" width="12" height="12" rx="2"/>
     <rect x="190" y="92" width="12" height="12" rx="2"/>
     <rect x="174" y="108" width="12" height="12" rx="2"/>
